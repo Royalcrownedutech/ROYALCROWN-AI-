@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoyalCrown AI Chatbot</title>
+    <style>
+    /* Global Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa; /* Light background */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+/* Chat Container */
+.chat-container {
+    width: 90%;
+    max-width: 450px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background: transparent;
+    overflow: hidden;
+}
+
+/* Background Watermark */
+.chat-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.25;  /* Increased visibility */
+    background: url("ROYC.png") center center repeat;
+    background-size: 200px; /* Adjust watermark size */
+    pointer-events: none;
+}
+
+/* Chat Box */
+.chat-box {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    background: transparent; /* Removed blue gradient */
+    scroll-behavior: smooth;
+}
+
+/* Message Styling */
+.message {
+    padding: 7px 20px;
+    margin: 6px;
+    border-radius: 6px;
+    max-width: 75%;
+    word-wrap: break-word;
+    font-size: 20px;
+    line-height: 1.5;
+    display: inline-block;
+    position: relative;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* User Messages */
+.user {
+    background-color: rgba(0, 123, 255, 0.2); /* Light blue transparent */
+    color: black;
+    align-self: flex-end;
+    text-align: right;
+    border-radius: 12px 12px 0 12px;
+}
+
+/* AI Messages */
+.ai {
+    background-color: rgba(233, 236, 239, 0.5); /* Light gray transparent */
+    color: black;
+    align-self: flex-start;
+    text-align: left;
+    border-radius: 12px 12px 12px 0;
+}
+
+/* Typing Indicator */
+.typing-indicator {
+    font-size: 14px;
+    color: #007bff;
+    font-weight: bold;
+    opacity: 0.8;
+}
+
+/* Send Box */
+.send-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: white;
+    padding: 12px;
+    border-top: 1px solid #ddd;
+    position: sticky;
+    bottom: 0;
+}
+
+.send-box input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.send-box button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.send-box button:hover {
+    background-color: #0056b3;
+}
+
+/* Blinking Chatbot Icon */
+.whatsapp-icon {
+    display: block;
+    margin: 10px auto;
+    text-align: center;
+    animation: blink 1s infinite alternate; /* Fixed blinking */
+}
+
+.whatsapp-icon img {
+    width: 50px;
+    height: 50px;
+    transition: transform 0.2s;
+}
+
+.whatsapp-icon:hover img {
+    transform: scale(1.1);
+}
+
+/* Copyright */
+.copyright {
+    width: 100%;
+    background: black;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 14px;
+}
+
+/* Smooth Fade-in */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Blinking Effect */
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+    </style>
+</head>
+<body>
+
+    <!-- Chat Container -->
+    <div class="chat-container">
+        <div class="chat-box">
+            <div class="chat-background"></div> <!-- Watermark Background -->
+            <div id="chat-messages"></div>
+        </div>
+
+        <!-- Send Box -->
+        <div class="send-box">
+            <input type="text" id="user-input" placeholder="ASK ME EDUCATIONAL QUESTION...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <!-- WhatsApp Icon -->
+    <div class="whatsapp-icon">
+        <a href="https://wa.me/2349052999251" target="_blank">
+            <img src="chatbot.png" alt="WhatsApp">
+        </a>
+    </div>
+
+    <!-- Copyright Section -->
+    <div class="copyright">© 2025 ROYALCROWN EDUTECH. All rights reserved.</div>
+
+    <script src="script.js"></script>
+</body>
+</html>
