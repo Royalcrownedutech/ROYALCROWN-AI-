@@ -43,7 +43,24 @@ function displayMessage(message, sender) {
         messageElement.scrollIntoView({ behavior: "smooth", block: "end" });
     }, 100);
 }
-
+// Register Service Worker
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then((registration) => {
+        console.log('Service Worker Registered!', registration);
+  
+        // Check for updates
+        registration.addEventListener('updatefound', () => {
+          const newWorker = registration.installing;
+          newWorker.addEventListener('statechange', () => {
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              showUpdatePopup();
+            }
+          });
+        });
+      })
+      .catch((err) => console.log('Service Worker Registration Failed:', err));
+  }
 // AI Response Logic
 function getAIResponse(userInput) {
     let chatMessages = document.getElementById("chat-messages");
@@ -77,7 +94,8 @@ const responses = {
     "does royalcrown techverse provide fintech services": "💰 Yes! The company plans to launch RoyalCrown Bank with full banking features.",
     "is royalcrown techverse hiring": "📢 Yes! They often seek skilled programmers and AI developers.",
     "what makes royalcrown techverse unique": "🚀 Innovation, AI-driven solutions, and a strong focus on education and technology.",
-
+     "royalcrown": "royal crown is an innovative educational consultant,who has work on transforming education technological.",
+     "history of royalcrown": " royalcrown is a nigeria citizen raise from southern nigeria,he is a male by gender,dark in complexion,very gentle and easy going.",
     // New Questions about Abodunrin Oluwafemi Eniola (RoyalCrown)
     "who is abodunrin oluwafemi eniola": "👨‍💼 He is the founder of RoyalCrown EduTech and RoyalCrown Techverse.",
     "what is the vision of abodunrin oluwafemi eniola": "🌍 His vision is to transform education using AI and technology.",
@@ -314,8 +332,8 @@ const responses = {
     "jamb registration": "📝 JAMB registration details are available! Message us on WhatsApp at +2349052999251 for guidance.",
     "cut-off mark": "🎯 Want to know the latest JAMB cut-off marks for universities and polytechnics? Chat with us at +2349052999251.",
     "jamb result": "📊 You can check your JAMB result online. Need help? Contact us on WhatsApp at +2349052999251.",
-    "jamb admission letter": "📜 Printing your JAMB admission letter? Get step-by-step guidance by messaging us at +2349052999251.",
-    "jamb admission status": "🔍 Check your JAMB admission status online. Need assistance? Contact us on WhatsApp at +2349052999251.",
+    "admission letter": "📜 Printing your JAMB admission letter? Get step-by-step guidance by messaging us at +2349052999251.",
+    "admission status": "🔍 Check your JAMB admission status online. Need assistance? Contact us on WhatsApp at +2349052999251.",
     "jamb registration deadline": "⏳ Stay updated on the JAMB registration deadline! Chat with us at +2349052999251.",
     "jamb registration fee": "💰 The JAMB registration fee varies yearly. Message us at +2349052999251 for the latest amount.",
     "can i register jamb twice in a year?": "🚫 No, JAMB allows only one registration per candidate per year.",
@@ -328,10 +346,10 @@ const responses = {
     "jamb past questions": "📖 Get free JAMB past questions and answers! Message us at +2349052999251.",
     "how to check jamb score": "📊 You can check your JAMB score online via the official JAMB portal.",
     "how to retrieve jamb profile code": "📩 Lost your JAMB profile code? Send 'RESEND' to 55019 from your registered phone number.",
-    "how to link email to jamb": "📧 To link your email to JAMB, send 'email youremail@gmail.com' to 55019.",
+    "how to link email to jamb": "📧 To link your email to JAMB, send 'email royalcrownchatbot@gmail.com' to 55019.",
     "jamb recommended textbooks": "📚 Need the best textbooks for JAMB? Contact us at +2349052999251 for a list.",
-    "how to change jamb course or institution": "🔄 To change your course or institution, visit the JAMB portal or a CBT center.",
-    "can i use awaiting result for jamb?": "✅ Yes, you can register JAMB with an awaiting O'Level result.",
+    "change jamb course or institution": "🔄 To change your course or institution, visit the JAMB portal or a CBT center.",
+    "awaiting result?": "✅ Yes, you can register JAMB with an awaiting O'Level result.",
     "jamb syllabus": "📖 Download the latest JAMB syllabus by chatting with us at +2349052999251.",
     "how many times can i write jamb?": "♻️ You can write JAMB as many times as you wish until you gain admission.",
     "jamb cbt exam tips": "💡 Want to pass JAMB easily? Get expert CBT tips by messaging us at +2349052999251.",
@@ -349,9 +367,9 @@ const responses = {
     "how to upgrade jamb score": "🚨 Beware of fraudsters! JAMB scores cannot be upgraded.",
     "how to check jamb result with sms": "📩 Send 'RESULT' to 55019 using your JAMB registered phone number.",
     "jamb cut-off mark for universities": "🎯 Cut-off marks vary by institution. Message us at +2349052999251 for details.",
-    "how to print jamb original result slip": "🖨️ Visit the JAMB portal and log in to print your original result slip.",
-    "how to check jamb admission letter": "📜 Log in to JAMB CAPS to check and print your admission letter.",
-    "jamb admission list for federal universities": "📋 Check the admission list on JAMB CAPS or the school’s portal.",
+    "how to print jamb original result slip": "🖨️ contact us at +2349052999251.",
+    "how to check jamb admission letter": "📜 contact us at +2349052999251.",
+    "admission list": "📋 Check the admission list on JAMB CAPS or the school’s portal.",
     "can i write jamb and direct entry together?": "❌ No, JAMB and Direct Entry are separate applications.",
     "how long does jamb result last?": "📅 JAMB results are valid for one year.",
     "can i register jamb with neco gce?": "✅ Yes, NECO GCE is accepted for JAMB registration.",
@@ -359,7 +377,7 @@ const responses = {
     "how much is jamb correction of data?": "💰 The cost of correction of data varies. Contact us at +2349052999251 for the latest fee.",
     "how many times can i change my jamb institution?": "♻️ You can change your institution up to twice.",
     "can i use jamb to study abroad?": "🌍 No, JAMB is only valid for Nigerian institutions.",
-    "jamb e-pin": "🏷️ Purchase JAMB e-PIN from accredited banks or online payment platforms.",
+    "jamb e-pin": "🏷️ to purchase a valid e-pin, contact us +2349052999251.",
     "change jamb phone number": "📞 You cannot change your phone number after registration.",
     "jamb exam date and time?": "📅 Check your JAMB slip for your exam schedule.",
     " not yet admitted": "❌ Keep checking JAMB CAPS, or message us at +2349052999251 for help.",
@@ -396,7 +414,31 @@ const responses = {
     "is abodunrin eniola a programmer": "✅ Yes, he is a skilled programmer in Python, JavaScript, and web development.",  
     "how can i contact abodunrin eniola": "📧 You can reach him via ROYALCROWN Techverse at +2349052999251.",
 };
-
+// Function to show update notification
+function showUpdatePopup() {
+    const updateDiv = document.createElement('div');
+    updateDiv.innerHTML = `
+      <div style="position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%);
+                  background: #6200ea; color: white; padding: 10px 20px; border-radius: 5px;
+                  box-shadow: 0px 4px 6px rgba(0,0,0,0.1); z-index: 1000;">
+        New update available! <button onclick="location.reload()">Refresh</button>
+      </div>
+    `;
+    document.body.appendChild(updateDiv);
+  }
+  
+  // Unregister Service Worker (Disable Chatbot)
+  function unregisterServiceWorker() {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        registrations.forEach((registration) => {
+          registration.unregister().then(() => {
+            console.log('Service Worker Unregistered');
+          });
+        });
+      });
+    }
+  }
 // Find the best matching response based on keywords
 function findBestResponse(input) {
     for (let key in responses) {

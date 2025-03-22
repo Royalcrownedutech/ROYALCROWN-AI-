@@ -1,0 +1,20 @@
+{
+  "name": "ROYALCROWN AI",
+  "short_name": "RoyalChatbot",
+  "start_url": "https://fluffy-pie-94794.netify.app/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#6200ea",
+  "icons": [
+    {
+      "src": "ROYC.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "ROYC.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
